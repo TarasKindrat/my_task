@@ -18,7 +18,7 @@ pipeline {
         }
         stage("Second step") {
             steps {
-                sh 'vagrant@127.0.0.1 -p2222  \'uptime\''
+                sh 'ssh vagrant@127.0.0.1 -p2222  \'uptime\''
             }
         }
     }

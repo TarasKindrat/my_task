@@ -16,8 +16,8 @@ pipeline {
         stage("Get code from git") {
             steps {
              // Check if exixst folder carts   
-             //sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'
-             git 'https://github.com/TarasKindrat/carts.git'
+             sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'
+             sh 'git clone https://github.com/TarasKindrat/carts.git'
             }
         }
         stage("Build") {

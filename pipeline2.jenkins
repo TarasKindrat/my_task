@@ -15,12 +15,11 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-             git 'https://github.com/TarasKindrat/carts.git'
+                git 'https://github.com/TarasKindrat/carts.git'
             }
         }
         stage("Build") {
             steps {
-                sh 'mvn clean -f carts'
                 sh 'mvn package'
             }
         }

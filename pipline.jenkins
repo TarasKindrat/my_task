@@ -1,20 +1,22 @@
 #!groovy
-// Check njinx properties
+// Check properties
 properties([disableConcurrentBuilds()])
 
 pipeline {
     agent { 
+        // git branche
         label 'master'
         }
     options {
+        // save last 10 logs and artifacts
         buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
     stages {
         stage("Get code from git") {
             steps {
-             sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'
-               
+             // Check if exixst folder carts   
+             //sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'
              git 'https://github.com/TarasKindrat/carts.git'
             }
         }
@@ -24,5 +26,17 @@ pipeline {
                 sh ' mvn package'
             }
         }
-    }
-}
+        stage("Push") {
+            steps {
+                sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras;' 
+                
+            }
+        }
+       stage("Run") {
+            steps {
+                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar &';'
+            }
+        } 
+   }
+    
+  }

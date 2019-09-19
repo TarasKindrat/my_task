@@ -1,0 +1,46 @@
+#!groovy
+// Check properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        // git branche
+        label 'master'
+        }
+    options {
+        // save last 10 logs and artifacts
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Get code from git") {
+            steps {
+             git 'https://github.com/TarasKindrat/carts.git'
+            }
+        }
+        stage("Build") {
+            steps {
+                //sh 'cd carts'
+                sh ' mvn package'
+            }
+        }
+        stage("Stop old") {
+           steps {
+                // stop old carts cervice
+                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 \'systemctl stop carts' '
+            }
+        
+        stage("Push") {
+            steps {
+                
+                sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras' 
+            }
+       }
+        stage("Run") {
+           steps {
+                // start new carts cervice
+                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 \'systemctl start carts' '
+            }
+       } 
+    }
+ }

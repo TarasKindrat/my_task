@@ -13,10 +13,8 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-             sh 'if [-d "carts"]; then 
-                rm -r "carts" 
-                     fi'
-                 
+             sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'   "
+               
              git 'https://github.com/TarasKindrat/carts.git'
             }
         }

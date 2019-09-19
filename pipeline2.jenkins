@@ -28,7 +28,7 @@ pipeline {
                 // stop old carts cervice
                 sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 \'sudo systemctl stop carts\' '
             }
-        }systemctl daemon-reload
+        }
         stage("Reload systemctl") {
            steps {
                 // reload systemctl service

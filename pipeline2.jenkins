@@ -32,7 +32,6 @@ pipeline {
         }
         stage("Push") {
             steps {
-                
                 sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras' 
             }
        }

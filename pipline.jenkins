@@ -18,6 +18,7 @@ pipeline {
         }
         stage("Build") {
             steps {
+                sh 'cd carts'
                 sh ' mvn package'
             }
         }

@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-             sh 'git clone https://github.com/TarasKindrat/carts.git'
+             git 'https://github.com/TarasKindrat/carts.git'
             }
         }
         stage("Build") {

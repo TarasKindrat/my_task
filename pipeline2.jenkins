@@ -16,7 +16,7 @@ pipeline {
         stage("Clean project") {
             steps {
                 
-                sh 'mvn clean'
+                sh 'mvn clean -f carts'
             }
         }
         stage("Get code from git") {

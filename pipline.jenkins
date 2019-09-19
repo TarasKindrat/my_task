@@ -1,0 +1,25 @@
+#!groovy
+// Check njinx properties
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Get code from git") {
+            steps {
+             sh 'git clone https://github.com/TarasKindrat/carts.git'
+            }
+        }
+        stage("Build") {
+            steps {
+                sh ' mvn package'
+            }
+        }
+    }
+}

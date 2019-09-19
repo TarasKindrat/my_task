@@ -15,9 +15,7 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-             // Check if exixst folder carts   
-             sh 'for file in * \n do \n if [$file = "carts"]; then \n if [-d "carts"]; then \n rm -r "carts" \n fi \n fi \n done'
-             sh 'git clone https://github.com/TarasKindrat/carts.git'
+             git 'https://github.com/TarasKindrat/carts.git'
             }
         }
         stage("Build") {
@@ -26,16 +24,16 @@ pipeline {
                 sh ' mvn package'
             }
         }
-        //stage("Push") {
-            //steps {
-                //sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras;' 
-           //  }
-     //   }
-    //   stage("Run") {
-          //  steps {
-                //sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar &';'
-            //}
-    //    } 
-   }
-    
-  }
+        stage("Push") {
+            steps {
+                
+                sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras;' 
+            }
+       }
+        stage("Run") {
+           steps {
+                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar &';'
+            }
+       } 
+    }
+ }

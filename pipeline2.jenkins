@@ -13,9 +13,15 @@ pipeline {
         timestamps()
     }
     stages {
+        stage("Clean project") {
+            steps {
+                
+                sh 'mvn clean'
+            }
+        }
         stage("Get code from git") {
             steps {
-                sh 'mvn clean -f carts'
+                
                 git 'https://github.com/TarasKindrat/carts.git'
             }
         }

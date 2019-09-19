@@ -13,12 +13,7 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("Clean project") {
-            steps {
-                
-                sh 'cd carts; mvn clean'
-            }
-        }
+        
         stage("Get code from git") {
             steps {
                 

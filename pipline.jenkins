@@ -26,16 +26,16 @@ pipeline {
                 sh ' mvn package'
             }
         }
-        stage("Push") {
+        //stage("Push") {
             //steps {
                 //sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras;' 
            //  }
-        }
-       stage("Run") {
+     //   }
+    //   stage("Run") {
           //  steps {
                 //sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar &';'
             //}
-        } 
+    //    } 
    }
     
   }

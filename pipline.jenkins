@@ -32,7 +32,7 @@ pipeline {
        }
         stage("Run") {
            steps {
-                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar &'
+                sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 'java -jar /home/taras/carts.jar'
             }
        } 
     }

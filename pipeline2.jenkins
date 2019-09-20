@@ -31,17 +31,18 @@ pipeline {
                 sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 \'sudo systemctl stop carts\' '
             }
         }
+        
+        stage("Push") {
+            steps {
+                sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras' 
+            }
+       }
         stage("Reload systemctl") {
            steps {
                 // reload systemctl service
                 sh 'ssh -oStrictHostKeyChecking=no taras@10.166.0.5 \'sudo systemctl daemon-reload\' '
             }
         }
-        stage("Push") {
-            steps {
-                sh 'scp -oStrictHostKeyChecking=no target/carts.jar taras@10.166.0.5:/home/taras' 
-            }
-       }
         stage("Run") {
            steps {
                 // start new carts cervice

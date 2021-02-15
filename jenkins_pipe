@@ -17,5 +17,10 @@ pipeline {
             }
         }
         
+        stage("Second step") {
+            steps {
+                sh 'ssh root@ub-desktop \'uptime\''
+            }
+        }
     }
 }

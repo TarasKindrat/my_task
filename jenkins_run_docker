@@ -13,11 +13,10 @@ pipeline {
     stages {
         stage("Create docker image") {
             steps {
-                echo "=========== Start build docker image ===========" 
-                dir('docker/toolbox')sh{
-                'docker build . '
+                echo " ============== start building image =================="
+                dir ('docker/toolbox') {
+                	sh 'docker build -t taras/toolbox:latest . '
                 }
-            }
         }
     }
 }

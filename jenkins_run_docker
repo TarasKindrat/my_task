@@ -17,6 +17,7 @@ pipeline {
                 dir ('docker/toolbox') {
                 	sh 'docker build -t taras/toolbox:latest . '
                 }
+            }
         }
     }
 }

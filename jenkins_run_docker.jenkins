@@ -18,6 +18,12 @@ pipeline {
                 	sh 'docker build -t taras/toolbox:latest . '
                 }
             }
+            
+           steps {
+                echo " ============== list image =================="
+               	sh 'docker images'
+                
+            }
         }
     }
 }

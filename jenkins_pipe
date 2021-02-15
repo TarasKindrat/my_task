@@ -13,13 +13,9 @@ pipeline {
     stages {
         stage("First step") {
             steps {
-                sh 'ssh vagrant@127.0.0.1 -p2222 \'hostname\''
+                sh 'ssh root@ub-desktop \'hostname\''
             }
         }
-        stage("Second step") {
-            steps {
-                sh 'ssh vagrant@127.0.0.1 -p2222  \'uptime\''
-            }
-        }
+        
     }
 }

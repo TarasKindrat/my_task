@@ -30,6 +30,15 @@ pipeline {
                 }
             }
         } 
+        
+        stage("docker push") {
+            steps {
+                echo " ============== start pushing image =================="
+                sh '''
+                docker push taras/toolbox:latest
+                '''
+            }
+        }
         stage("List docker image") {    
            steps {
                 echo " ============== list image =================="

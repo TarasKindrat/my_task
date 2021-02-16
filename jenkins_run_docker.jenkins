@@ -35,7 +35,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push taras/toolbox:latest
+                docker push taraskindrat/toolbox:latest
                 '''
             }
         }

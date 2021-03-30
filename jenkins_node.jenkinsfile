@@ -17,7 +17,7 @@ pipeline {
              git 'https://github.com/TarasKindrat/node-app.git'
             }
         }
-        stage("Run test) {
+        stage("Run test") {
             steps {
               sh 'npm install' 
               sh 'script/test'

@@ -14,14 +14,16 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-             git 'https://github.com/TarasKindrat/node-app.git'
+                 git 'https://github.com/TarasKindrat/node-app.git'
+                 sh 'ls -la'
             }
         }
         stage("Run test") {
             steps {
-              sh 'cd node-app'
-              sh 'npm install' 
-              sh 'script/test.sh'
+                 sh 'ls -la'
+                 sh 'cd node-app'
+                 sh 'npm install' 
+                 sh 'script/test.sh'
             }
         }
         stage("Push") {

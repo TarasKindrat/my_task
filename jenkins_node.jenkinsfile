@@ -23,7 +23,7 @@ pipeline {
                  sh 'cd node-app'
                  sh 'ls -la'
                  sh 'npm install' 
-                 sh './script/test.sh'
+                 sh './test/test.sh'
             }
         }
         stage("Push") {

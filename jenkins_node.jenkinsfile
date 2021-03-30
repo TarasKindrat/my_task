@@ -16,13 +16,16 @@ pipeline {
             steps {
                  git 'https://github.com/TarasKindrat/node-application.git'
                  sh 'ls -la'
+                 sh 'pwd'
                  
             }
         }
         stage("Run test") {
             steps {
+                 sh 'ls -la'
+                 sh 'pwd'
                  sh 'npm install' 
-                 sh './test/test.sh'
+                 sh 'test/test.sh'
             }
         }
         stage("Push") {

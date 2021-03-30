@@ -26,10 +26,7 @@ pipeline {
         stage("Push") {
             steps {
             sh 'ssh jenkins@192.168.56.11 \'mkdir mode-app\''
-            
-            
-                
-                
+              
             }
        }
         stage("Run") {
@@ -37,3 +34,4 @@ pipeline {
                 
             }
         }
+    }

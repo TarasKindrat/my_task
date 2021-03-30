@@ -1,1 +1,38 @@
+#!groovy
+// run docker build
+properties([disableConcurrentBuilds()])
 
+pipeline {
+    agent { 
+        label 'master'
+        }
+    triggers { pollSCM('* * * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Get code from git") {
+            steps {
+             git 'https://github.com/TarasKindrat/node-app.git'
+            }
+        }
+        stage("Run test) {
+            steps {
+              sh 'npm install' 
+              sh 'script/test'
+            }
+        }
+        stage("Push") {
+            steps {
+            sh 'ssh jenkins@192.168.56.11 \'mkdir mode-app'\"git 'https://github.com/TarasKindrat/node-app.git'"\'
+            
+            
+                
+                
+            }
+       }
+        stage("Run") {
+           steps {
+                
+            }

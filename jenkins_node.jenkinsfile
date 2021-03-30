@@ -25,7 +25,7 @@ pipeline {
         }
         stage("Push") {
             steps {
-            sh 'ssh jenkins@192.168.56.11 \'mkdir mode-app'\"git 'https://github.com/TarasKindrat/node-app.git'"\'
+            sh 'ssh jenkins@192.168.56.11 \'mkdir mode-app'\'
             
             
                 

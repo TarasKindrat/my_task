@@ -31,7 +31,7 @@ pipeline {
        }
         stage("Run") {
            steps {
-                
+                sh 'echo "will be"' 
             }
         }
     }

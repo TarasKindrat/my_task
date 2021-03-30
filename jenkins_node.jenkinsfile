@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-                 git 'https://github.com/TarasKindrat/node-app.git'
+                 sh 'git clone https://github.com/TarasKindrat/node-app.git'
                  sh 'ls -la'
             }
         }

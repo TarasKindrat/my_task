@@ -26,6 +26,8 @@ pipeline {
                  sh 'pwd'
                  sh 'npm install' 
                  sh 'cd test/'
+                 sh 'ls -la'
+                 sh 'pwd'
                  sh 'test/test.sh'
             }
         }

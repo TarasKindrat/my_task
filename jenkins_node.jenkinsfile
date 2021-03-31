@@ -26,9 +26,9 @@ pipeline {
                  sh 'script/test.sh'
             }
         }
-        stage("Push") {
+        stage("Deploy") {
             steps {
-            sh 'ssh root@192.168.56.11 \'mkdir mode-app\''
+            sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\'cd node-application\'ls\''
               
             }
        }

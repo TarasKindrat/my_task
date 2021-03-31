@@ -15,19 +15,15 @@ pipeline {
         stage("Get code from git") {
             steps {
                  git 'https://github.com/TarasKindrat/node-application.git'
-                 sh 'chmod +x test/test.js'
+                 
                  
             }
         }
         stage("Run test") {
             steps {
-                 sh 'ls -la'
-                 sh 'pwd'
                  sh 'npm install' 
-                 sh 'cd test'
-                 sh 'ls -la'
-                 sh 'pwd'
-                 sh 'test/test.js'
+                 sh 'chmod +x test/test.js'
+                 sh '/script/test.sh'
             }
         }
         stage("Push") {

@@ -1,5 +1,5 @@
 #!groovy
-// run docker build
+
 properties([disableConcurrentBuilds()])
 
 pipeline {

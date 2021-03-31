@@ -28,7 +28,7 @@ pipeline {
                  sh 'cd test'
                  sh 'ls -la'
                  sh 'pwd'
-                 sh 'test/test.sh'
+                 sh 'test/test.js'
             }
         }
         stage("Push") {

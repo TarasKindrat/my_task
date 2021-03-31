@@ -15,8 +15,7 @@ pipeline {
         stage("Get code from git") {
             steps {
                  git 'https://github.com/TarasKindrat/node-application.git'
-                 sh 'ls -la'
-                 sh 'pwd'
+                 sh 'chmod +x test/test.js'
                  
             }
         }

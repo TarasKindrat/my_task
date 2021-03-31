@@ -28,8 +28,8 @@ pipeline {
         }
         stage("Deploy") {
             steps {
-            sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
-            sh 'ssh root@192.168.56.11 \'cd node-application; ls \''    
+            sh 'ssh root@192.168.56.11 \'git https://github.com/TarasKindrat/node-application.git\''
+            sh 'ssh root@192.168.56.11 \'pwd; ls \''    
             }
        }
         stage("Run") {

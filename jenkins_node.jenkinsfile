@@ -37,7 +37,7 @@ pipeline {
             sh 'ssh root@192.168.56.11 \'node --version; npm --version\''
             sh 'ssh root@192.168.56.11 \'if [ -d node-application ]; then sudo rm -R node-application; fi\''    
             sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
-            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls;npm install — production\''  
+            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls;npm install\''  
             
              
             }

@@ -29,9 +29,10 @@ pipeline {
         stage("Deploy") {
             steps {
             echo "download and execute the NodeSource installation script"
+            sh 'ssh root@192.168.56.11 \'apt -y install curl\''
             sh 'ssh root@192.168.56.11 \'curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -\''
             echo "Install node special version"
-            sh 'ssh root@192.168.56.11 \'apt install nodejs\''
+            sh 'ssh root@192.168.56.11 \'apt -y install nodejs\''
             echo "Check version: "
             sh 'ssh root@192.168.56.11 \'node --version; npm --version\''
             sh 'ssh root@192.168.56.11 \'if [ -d node-application ]; then sudo rm -R node-application; fi\''    

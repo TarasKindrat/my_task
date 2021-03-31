@@ -47,7 +47,7 @@ pipeline {
                echo "Install pm2"
                sh 'ssh root@192.168.56.11 \'npm install pm2@latest -g\''
                echo "run application"
-               sh 'ssh root@192.168.56.11 \'cd node-application; pm2 start index.js\''
+               sh 'ssh root@192.168.56.11 \'cd node-application; pm2 -f start index.js\''
             }
         }
     }

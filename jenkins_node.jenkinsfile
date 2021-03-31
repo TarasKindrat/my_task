@@ -30,7 +30,7 @@ pipeline {
             steps {
             sh 'ssh root@192.168.56.11 \'if [ -d node-application ]; then sudo rm -R node-application; fi\''    
             sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
-            sh 'ssh root@192.168.56.11 \'pwd; ls \''    
+            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls; npm install\''    
             }
        }
         stage("Run") {

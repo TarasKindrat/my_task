@@ -29,7 +29,7 @@ pipeline {
         stage("Deploy") {
             steps {
             sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
-            sh 'ssh root@192.168.56.11 << EOF
+            sh 'ssh root@192.168.56.11 << EOF \
              cd node-application
              ls
              EOF\''    

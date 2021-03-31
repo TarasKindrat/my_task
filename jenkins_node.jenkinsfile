@@ -28,14 +28,25 @@ pipeline {
         }
         stage("Deploy") {
             steps {
+            echo "download and execute the NodeSource installation script"
+            sh 'ssh root@192.168.56.11 \'curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -\''
+            echo "Install node special version"
+            sh 'ssh root@192.168.56.11 \'apt install nodejs\''
+            echo "Check version: "
+            sh 'ssh root@192.168.56.11 \'node --version; npm --version\''
             sh 'ssh root@192.168.56.11 \'if [ -d node-application ]; then sudo rm -R node-application; fi\''    
             sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
-            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls; npm install\''    
+            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls;npm install — production\''  
+            
+             
             }
        }
         stage("Run") {
            steps {
-                sh 'echo "will be"' 
+               echo "Install pm2"
+               sh 'ssh root@192.168.56.11 \'npm install pm2@latest -g\''
+               echo "run application"
+               sh 'ssh root@192.168.56.11 \'cd node-application; pm2 start index.js\''
             }
         }
     }

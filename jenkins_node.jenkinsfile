@@ -30,7 +30,7 @@ pipeline {
     }
     post {
         success {
-            echo 'Run E2E Test pipeline!'
+            echo 'Run node_app_deploy pipeline!'
             build job: 'node_app_deploy'
         }
     }

@@ -26,7 +26,12 @@ pipeline {
                  sh 'script/test.sh'
             }
         }
-        
-        
+               
+    }
+    post {
+        success {
+            echo 'Run E2E Test pipeline!'
+            build job: 'node_app_deploy'
+        }
     }
 }

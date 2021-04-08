@@ -38,6 +38,16 @@ pipeline {
                echo "run application"
                sh 'ssh root@192.168.56.11 \'cd node-application; pm2 -f start index.js\''
             }
+
         }
     }
+    stage("Show url") {
+           steps {
+               echo "Url of app is:"
+               import hudson.console.ModelHyperlinkNote
+               println hudson.console.ModelHyperlinkNote.encodeTo('http://192.168.56.11:3000/', 'example')
+               println env.BUILD_URL
+               println env.JOB_URL
+            }
+
 }

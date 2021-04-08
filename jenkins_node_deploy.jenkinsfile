@@ -44,14 +44,15 @@ pipeline {
       stage("Show url") {
            steps {
                echo "Url of app is:"
-               
+               echo "http://192.168.56.11:3000"
+               println env.BUILD_URL
+               println env.JOB_URL
                //import hudson.console.ModelHyperlinkNote
                // get potr
                //env.node_app_port = sh 'ssh root@192.168.56.11 \'netstat -tlnp | grep node | egrep -o ":::([0-9]{4})" | egrep -o "([0-9]{4})"\''
                //println hudson.console.ModelHyperlinkNote.encodeTo('http://192.168.56.11:${env.node_app_port}', 'example')
-               println env.BUILD_URL
-               println env.JOB_URL
-               echo "http://192.168.56.11:3000"
+               
+               
             }
        }
    }

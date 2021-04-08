@@ -53,5 +53,6 @@ pipeline {
                println env.JOB_URL
                echo "192.168.56.11:${env.node_app_port}"
             }
-      }
+       }
+   }
 }

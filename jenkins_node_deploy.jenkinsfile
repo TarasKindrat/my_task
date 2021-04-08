@@ -40,8 +40,8 @@ pipeline {
             }
 
         }
-    }
-    stage("Show url") {
+    
+      stage("Show url") {
            steps {
                echo "Url of app is:"
                

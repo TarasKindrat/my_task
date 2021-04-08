@@ -12,11 +12,11 @@ pipeline {
     }
     
         stage("Deploy") {
-            #when {
-            #  expression {
-            #    currentBuild.result == null || currentBuild.result == 'SUCCESS' 
-            #  }
-            #}    
+            //when {
+            //  expression {
+            //   currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+            //  }
+            //}    
             steps {
             echo "download and execute the NodeSource installation script"
             sh 'ssh root@192.168.56.11 \'apt -y install curl\''

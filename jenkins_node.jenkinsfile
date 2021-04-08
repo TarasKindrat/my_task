@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Get code from git") {
             steps {
-                 git 'https://github.com/TarasKindrat/node-application.git'
+                 git 'https://github.com/TarasKindrat/node-application.git_5555'
                  
                  
             }

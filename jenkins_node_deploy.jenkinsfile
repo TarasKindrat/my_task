@@ -1,0 +1,44 @@
+#!groovy
+
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent { 
+        label 'master'
+        }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    
+        stage("Deploy") {
+            when {
+              expression {
+                currentBuild.result == null || currentBuild.result == 'SUCCESS' 
+              }
+            }    
+            steps {
+            echo "download and execute the NodeSource installation script"
+            sh 'ssh root@192.168.56.11 \'apt -y install curl\''
+            sh 'ssh root@192.168.56.11 \'curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -\''
+            echo "Install node special version"
+            sh 'ssh root@192.168.56.11 \'apt -y install nodejs\''
+            echo "Check version: "
+            sh 'ssh root@192.168.56.11 \'node --version; npm --version\''
+            sh 'ssh root@192.168.56.11 \'if [ -d node-application ]; then sudo rm -R node-application; fi\''    
+            sh 'ssh root@192.168.56.11 \'git clone https://github.com/TarasKindrat/node-application.git\''
+            sh 'ssh root@192.168.56.11 \'cd node-application; pwd; ls;npm install\''  
+            
+             
+            }
+       }
+        stage("Run") {
+           steps {
+               echo "Install pm2"
+               sh 'ssh root@192.168.56.11 \'npm install pm2@latest -g\''
+               echo "run application"
+               sh 'ssh root@192.168.56.11 \'cd node-application; pm2 -f start index.js\''
+            }
+        }
+    }
+}

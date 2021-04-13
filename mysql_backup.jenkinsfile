@@ -24,21 +24,22 @@ pipeline {
 		}
         stage("Make backup") {
             steps {
-			withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')], 
-			[usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) {
-                    sh """
-                    docker login -u $USERNAME -p $PASSWORD
-                    """
-                 sh 'mysqldump --opt --protocol=TCP --user=${USER} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | gzip > ${env.FILE}'
-                 
-                 
-            }
+		withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')], 
+		[usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
+		    {
+                     
+                      sh 'mysqldump --opt --protocol=TCP --user=${USER} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | gzip > ${env.FILE}'
+            
+                    }
+	    }
         }
         stage("Upload to ftp") {
             steps {
 			withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')]
-                 sh 'ftp-upload -h {192.168.56.11} -u {FTP_USERNAME} --password {FTP_PASSWORD} -d {'mysql_backup'} {env.FILE}' 
-            }
+			{
+                           sh 'ftp-upload -h {192.168.56.11} -u {FTP_USERNAME} --password {FTP_PASSWORD} -d {'mysql_backup'} {env.FILE}' 
+                         }
+                   }
         }
 		
 		stage("Remove backup from Jenkins") {

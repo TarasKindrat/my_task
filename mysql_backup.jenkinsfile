@@ -12,7 +12,7 @@ pipeline {
         timestamps()
     }
     stages {
-	    stage("Get date and time") {
+      stage("Get date and time") {
 	
 	        environment {
                FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz').trim()
@@ -20,8 +20,8 @@ pipeline {
            steps {
 		        echo "Backup name is: "
                  echo "PATH=${FILE}"
-				 }
-		}
+	   }
+	}
         stage("Make backup") {
             steps {
 		withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')], 
@@ -40,9 +40,9 @@ pipeline {
                            sh 'ftp-upload -h {192.168.56.11} -u {FTP_USERNAME} --password {FTP_PASSWORD} -d {'mysql_backup'} {env.FILE}' 
                          }
                    }
-        }
+          }
 		
-		stage("Remove backup from Jenkins") {
+	stage("Remove backup from Jenkins") {
             steps {
                 
                  sh 'rm ${env.FILE}'
@@ -51,5 +51,5 @@ pipeline {
                
     }
     
-    }
-} 
+ }
+ 

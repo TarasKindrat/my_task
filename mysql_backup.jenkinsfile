@@ -19,7 +19,7 @@ pipeline {
                }
            steps {
 		        echo "Backup name is: "
-                 echo "PATH=${FILE}"
+                 echo "${env.FILE}"
 	   }
 	}
         stage("Make backup") {

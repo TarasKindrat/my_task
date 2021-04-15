@@ -58,7 +58,7 @@ pipeline {
 	stage("Remove backup from Jenkins") {
             steps {
                 
-                 sh 'rm ${env.FILE}'
+                 sh 'rm ${FILE}'
             }
         }
                

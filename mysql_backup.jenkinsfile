@@ -48,7 +48,7 @@ pipeline {
             steps {
 		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
 		     {
-                       //sh 'ftp-upload -h {192.168.56.11} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d {'mysql_backup'} ${env.FILE}'
+                       
 		       sh 'ftp-upload -h 192.168.56.11 -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d \"mysql_backup\" ${FILE}'
 		       
                      }
@@ -57,8 +57,11 @@ pipeline {
 		
 	stage("Remove backup from Jenkins") {
             steps {
-                
-                 sh 'rm ${FILE}'
+		echo "Before remov backup"
+                sh 'ls -la | grep mysql_*'
+                sh 'rm ${FILE}'
+		echo "After remov backup"
+		sh 'ls -la | grep mysql_*'
             }
         }
                

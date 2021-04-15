@@ -20,10 +20,16 @@ pipeline {
 			FILE_END = '.sql.gz'
 			DATE_FILE = sh(script: 'date "+%Y-%m-%d-%H-%M-%S"', returnStdout: true).trim()
 			FILE = "${FILE_START}${DATE_FILE}${FILE_END}"
+			
+			CC = """${sh(
+                                returnStdout: true,
+                                script: 'echo "clang"'
+                                 )}"""
                }
            steps {
 		 echo "Backup name is: "
                  echo "${env.FILE}"
+		 sh 'printenv'
 	   }
 	}
         stage("Make backup") {

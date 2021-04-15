@@ -32,8 +32,8 @@ pipeline {
 		   usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
 		    {
                      
-                      //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | gzip > ${env.FILE}'
-		      sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > .${env.FILE}'
+                      //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
+		      sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} > .${env.FILE}'
 		      sh 'ls -la'
             
                     }

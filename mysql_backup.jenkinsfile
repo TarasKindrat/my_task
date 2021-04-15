@@ -46,7 +46,7 @@ pipeline {
         }
         stage("Upload to ftp") {
             steps {
-		   sh ' apt install ftp-upload'
+		   sh 'sudo apt install ftp-upload'
 		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
 		     {
                        

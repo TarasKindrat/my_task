@@ -76,7 +76,7 @@ pipeline {
 		     {
 	    sh"""
 	    #!/usr/bin/env bash
-            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD}192.168.56.11/mysql_backup <<EOF
+            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD} 192.168.56.11/mysql_backup <<EOF
             ls -lat
            QUIT
            EOF

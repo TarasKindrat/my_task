@@ -35,7 +35,7 @@ pipeline {
                       //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
 		      sh """
 		      #!/bin/bash
-		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > .${env.FILE}
+		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > \"${env.FILE}\"
 		      """
 		      sh 'ls -la'
             
@@ -47,7 +47,7 @@ pipeline {
 		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
 		     {
                        //sh 'ftp-upload -h {192.168.56.11} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d {'mysql_backup'} ${env.FILE}'
-		       sh 'ftp-upload -h {192.168.56.11} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d {"mysql_backup"} ${FILE}'
+		       sh 'ftp-upload -h 192.168.56.11 -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d {"mysql_backup"} ${FILE}'
 		       
                      }
                   }

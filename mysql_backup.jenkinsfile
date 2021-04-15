@@ -35,7 +35,7 @@ pipeline {
                       //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
 		      sh """
 		      #!/bin/bash
-		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${env.FILE}
+		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > .${env.FILE}
 		      """
 		      sh 'ls -la'
             

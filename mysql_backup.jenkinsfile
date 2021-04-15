@@ -6,15 +6,7 @@ pipeline {
     agent { 
         label 'master'
         }
-    triggers { pollSCM('0 18 * * *') }
-    options {
-        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
-        timestamps()
-    }
-    stages {
-      stage("Get date and time") {
-	
-	        environment {
+    environment {
                //FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz')
 			FILE_START = 'mysql_'
 			FILE_END = '.sql.gz'
@@ -26,9 +18,19 @@ pipeline {
                                 script: 'echo "clang"'
                                  )}"""
                }
+    triggers { pollSCM('0 18 * * *') }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+      stage("Get date and time") {
+	
+	        
            steps {
 		 echo "Backup name is: "
                  echo "${env.FILE}"
+		   echo "${FILE}"
 		 sh 'printenv'
 	   }
 	}
@@ -41,7 +43,7 @@ pipeline {
                       //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
 		      sh """
 		      #!/usr/bin/env bash
-		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${env.FILE}
+		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${FILE}
 		      """
 		      sh 'ls -la'
             

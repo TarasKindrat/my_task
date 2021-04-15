@@ -64,6 +64,7 @@ pipeline {
                 rm ${FILE}
 		echo "After remov backup"
 		ls -la | grep mysql_
+		pwd
 		"""
             }
         }

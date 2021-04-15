@@ -18,7 +18,7 @@ pipeline {
                FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz').trim()
                }
            steps {
-		        echo "Backup name is: "
+		 echo "Backup name is: "
                  echo "${env.FILE}"
 	   }
 	}

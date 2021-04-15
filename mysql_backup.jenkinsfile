@@ -35,8 +35,8 @@ pipeline {
         }
         stage("Upload to ftp") {
             steps {
-			withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')]
-			{
+			withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
+			 {
                            sh 'ftp-upload -h {192.168.56.11} -u {FTP_USERNAME} --password {FTP_PASSWORD} -d {'mysql_backup'} {env.FILE}' 
                          }
                    }

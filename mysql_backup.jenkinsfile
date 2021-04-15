@@ -15,7 +15,8 @@ pipeline {
       stage("Get date and time") {
 	
 	        environment {
-               FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz')
+               //FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz')
+			FILE = sh 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz'
                }
            steps {
 		 echo "Backup name is: "

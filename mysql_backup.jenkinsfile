@@ -31,11 +31,11 @@ pipeline {
 		   withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'), 
 		   usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
 		    {
-                     
+                      sh 'printenv'
                       //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
 		      sh """
 		      #!/usr/bin/env bash
-		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${FILE}
+		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${env.FILE}
 		      """
 		      sh 'ls -la'
             

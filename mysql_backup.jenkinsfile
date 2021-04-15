@@ -58,10 +58,13 @@ pipeline {
 	stage("Remove backup from Jenkins") {
             steps {
 		echo "Before remov backup"
-                sh 'ls -la | grep mysql_*'
-                sh 'rm ${FILE}'
+               sh """
+		  #!/usr/bin/env bash
+		  ls -la | grep mysql_
+                rm ${FILE}
 		echo "After remov backup"
-		sh 'ls -la | grep mysql_*'
+		ls -la | grep mysql_
+		"""
             }
         }
                

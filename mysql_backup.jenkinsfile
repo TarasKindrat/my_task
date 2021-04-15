@@ -16,7 +16,10 @@ pipeline {
 	
 	        environment {
                //FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz')
-			FILE = sh 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz'
+			FILE_START = 'mysql_'
+			FILE_END = '.sql.gz'
+			DATE_FILE = sh '$(date "+%Y-%m-%d-%H-%M-%S")'
+			FILE = FILE_START+DATE_FILE+FILE_END
                }
            steps {
 		 echo "Backup name is: "

@@ -34,7 +34,7 @@ pipeline {
 		   withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'), 
 		   usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
 		    {
-                      //sh 'mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} |  /usr/bin/gzip > ${env.FILE}'
+                      
 		      sh """
 		      #!/usr/bin/env bash
 		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${FILE}
@@ -46,6 +46,7 @@ pipeline {
         }
         stage("Upload to ftp") {
             steps {
+		   sh ' apt install ftp-upload'
 		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
 		     {
                        
@@ -54,7 +55,8 @@ pipeline {
                      }
                   }
           }
-		
+	    
+			
 	stage("Remove backup from Jenkins") {
             steps {
 		echo "Before remov backup"
@@ -68,7 +70,20 @@ pipeline {
 		"""
             }
         }
-               
+	stage("Check file on FTP") {
+            steps {
+		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
+		     {
+	    sh"""
+	    #!/usr/bin/env bash
+            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD}192.168.56.11/mysql_backup <<EOF
+            ls -lat
+           QUIT
+           EOF
+	   """
+	    }
+	}
+     }      
     }
     
  }

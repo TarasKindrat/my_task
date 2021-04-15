@@ -19,7 +19,7 @@ pipeline {
 			FILE_START = 'mysql_'
 			FILE_END = '.sql.gz'
 			DATE_FILE = sh '$(date "+%Y-%m-%d-%H-%M-%S")'
-			FILE = ${FILE_START}+${DATE_FILE}+${FILE_END}
+			FILE = "${FILE_START}+${DATE_FILE}+${FILE_END}"
                }
            steps {
 		 echo "Backup name is: "

@@ -12,6 +12,8 @@ pipeline {
 			FILE_END = '.sql.gz'
 			DATE_FILE = sh(script: 'date "+%Y-%m-%d-%H-%M-%S"', returnStdout: true).trim()
 			FILE = "${FILE_START}${DATE_FILE}${FILE_END}"
+	                FTP_HOST = '192.168.56.11'
+	                FTP_DIRECTORY = 'mysql_backup'
 		
                }
     triggers { pollSCM('0 18 * * *') }
@@ -50,7 +52,7 @@ pipeline {
 		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
 		     {
                        
-		       sh 'ftp-upload -h 192.168.56.11 -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d \"mysql_backup\" ${FILE}'
+			     sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d ${FTP_DIRECTORY} ${FILE}'
 		       
                      }
                   }
@@ -76,7 +78,7 @@ pipeline {
 		     {
 	    sh"""
 	    #!/usr/bin/env bash
-            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD} 192.168.56.11/mysql_backup <<EOF
+            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD} ${FTP_HOST}/${FTP_DIRECTORY} <<EOF
             ls -lat
            QUIT
            EOF

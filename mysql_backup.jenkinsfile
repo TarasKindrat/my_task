@@ -98,13 +98,13 @@ pipeline {
 	//   """
 	//    }
 		    
-	    sh("""
+	    sh('''
 	        #!/usr/bin/env bash
                 lftp -p 21 -u $FTP_HOST_CREDS_USR,$FTP_HOST_CREDS_PSW ${FTP_HOST}/${FTP_DIRECTORY} <<EOF
                 ls -lat
                 QUIT
                 EOF
-              """) 
+              ''') 
 		    
 	}
      }      

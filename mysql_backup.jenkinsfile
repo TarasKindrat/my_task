@@ -7,7 +7,9 @@ pipeline {
         label 'master'
         }
     environment {
-               //FILE = sh(script: 'mysql_$(date "+%Y-%m-%d-%H-%M-%S").sql.gz')
+               MYSQL_USER_CREDS = credentials('mysql_user')
+	       MYSQL_HOST_CREDS = credentials('mysql_host_db')
+	       FTP_HOST_CREDS = credentials('ftp')
 			FILE_START = 'mysql_'
 			FILE_END = '.sql.gz'
 			DATE_FILE = sh(script: 'date "+%Y-%m-%d-%H-%M-%S"', returnStdout: true).trim()
@@ -33,28 +35,39 @@ pipeline {
 	}
         stage("Make backup") {
             steps {
-		   withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'), 
-		   usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
-		    {
-                      
-		      sh """
+		  // withCredentials([usernamePassword(credentialsId: 'mysql_user', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'), 
+		  // usernamePassword(credentialsId: 'mysql_host_db', usernameVariable: 'DBSERVER', passwordVariable: 'DATABASE')]) 
+		  //  {
+                       
+		  //    sh """
+		  //    #!/usr/bin/env bash
+		  //    mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${FILE}
+		  //    """
+		  //    sh 'ls -la'
+		  // } 
+		   
+		    sh """
 		      #!/usr/bin/env bash
-		      mysqldump --opt --protocol=TCP --user=${USERNAME} --password=${PASSWORD} --host=${DBSERVER} ${DATABASE} | /usr/bin/gzip > ${FILE}
+		      mysqldump --opt --protocol=TCP --user=${MYSQL_USER_CREDS_USR} --password=${MYSQL_USER_CREDS_PSW} --host=${MYSQL_HOST_CREDS_DBSERVER} ${MYSQL_HOST_CREDS_DATABASE} | /usr/bin/gzip > ${FILE}
 		      """
 		      sh 'ls -la'
             
-                    }
+                   
 	    }
         }
         stage("Upload to ftp") {
             steps {
 		   
-		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
-		     {
+		  // withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
+		  //   {
                        
-			     sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d ${FTP_DIRECTORY} ${FILE}'
+		  //	     sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_USERNAME} --password ${FTP_PASSWORD} -d ${FTP_DIRECTORY} ${FILE}'
 		       
-                     }
+                  //   }
+		    
+		    sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_HOST_CREDS_FTP_USERNAME} --password ${FTP_HOST_CREDS_FTP_PASSWORD} -d ${FTP_DIRECTORY} ${FILE}'
+		 
+		    
                   }
           }
 	    
@@ -74,16 +87,25 @@ pipeline {
         }
 	stage("Check file on FTP") {
             steps {
-		   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
-		     {
-	    sh"""
+	//	   withCredentials([usernamePassword(credentialsId: 'ftp', usernameVariable: 'FTP_USERNAME', passwordVariable: 'FTP_PASSWORD')])
+	//	     {
+	//    sh"""
+	//    #!/usr/bin/env bash
+        //    lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD} ${FTP_HOST}/${FTP_DIRECTORY} <<EOF
+        //    ls -lat
+        //   QUIT
+        //   EOF
+	//   """
+	//    }
+		    
+		    sh"""
 	    #!/usr/bin/env bash
-            lftp -p 21 -u ${FTP_USERNAME},${FTP_PASSWORD} ${FTP_HOST}/${FTP_DIRECTORY} <<EOF
+            lftp -p 21 -u ${FTP_HOST_CREDS_FTP_USERNAME},${FTP_HOST_CREDS_FTP_PASSWORD} ${FTP_HOST}/${FTP_DIRECTORY} <<EOF
             ls -lat
            QUIT
            EOF
-	   """
-	    }
+	   """ 
+		    
 	}
      }      
     }

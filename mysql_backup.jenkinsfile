@@ -48,7 +48,7 @@ pipeline {
 		   
 		    sh """
 		      #!/usr/bin/env bash
-		      mysqldump --opt --protocol=TCP --user=${MYSQL_USER_CREDS_USR} --password=${MYSQL_USER_CREDS_PSW} --host=${MYSQL_HOST_CREDS__USR} ${MYSQL_HOST_CREDS_PSW} | /usr/bin/gzip > ${FILE}
+		      mysqldump --opt --protocol=TCP --user=${MYSQL_USER_CREDS_USR} --password=${MYSQL_USER_CREDS_PSW} --host=${MYSQL_HOST_CREDS_USR} ${MYSQL_HOST_CREDS_PSW} | /usr/bin/gzip > ${FILE}
 		      """
 		      sh 'ls -la'
             
@@ -65,7 +65,7 @@ pipeline {
 		       
                   //   }
 		    
-		    sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_HOST_CREDS__USR} --password ${FTP_HOST_CREDS_PSW} -d ${FTP_DIRECTORY} ${FILE}'
+		    sh 'ftp-upload -h ${FTP_HOST} -u ${FTP_HOST_CREDS_USR} --password ${FTP_HOST_CREDS_PSW} -d ${FTP_DIRECTORY} ${FILE}'
 		 
 		    
                   }

@@ -46,10 +46,10 @@ pipeline {
 		  //    sh 'ls -la'
 		  // } 
 		   
-		    sh """
+		    sh ('''
 		      #!/usr/bin/env bash
 		      mysqldump --opt --protocol=TCP --user=$MYSQL_USER_CREDS_USR --password=$MYSQL_USER_CREDS_PSW --host=$MYSQL_HOST_CREDS_USR $MYSQL_HOST_CREDS_PSW | /usr/bin/gzip > ${FILE}
-		      """
+		      ''')
 		      sh 'ls -la'
             
                    
@@ -75,14 +75,14 @@ pipeline {
 	stage("Remove backup from Jenkins") {
             steps {
 		echo "Before remov backup"
-               sh """
+               sh ('''
 		  #!/usr/bin/env bash
 		  ls -la | grep mysql_
                 rm ${FILE}
 		echo "After remov backup"
 		ls -la | grep mysql_
 		pwd
-		"""
+		''')
             }
         }
 	stage("Check file on FTP") {

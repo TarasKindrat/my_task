@@ -1,0 +1,172 @@
+taras@ubuntu-jenkins:~/ansible$ sudo ansible-playbook ansible_backup.yml
+
+PLAY [Ansible Find] ******************************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [127.0.0.1]
+
+TASK [Find files older than 30 days] *********************************************************************************************
+ok: [127.0.0.1]
+
+TASK [debug] *********************************************************************************************************************
+ok: [127.0.0.1] => {
+    "output": {
+        "changed": false,
+        "examined": 57,
+        "failed": false,
+        "files": [
+            {
+                "atime": 1618914530.3918965,
+                "ctime": 1613117805.0460927,
+                "dev": 64768,
+                "gid": 0,
+                "gr_name": "root",
+                "inode": 526311,
+                "isblk": false,
+                "ischr": false,
+                "isdir": false,
+                "isfifo": false,
+                "isgid": false,
+                "islnk": false,
+                "isreg": true,
+                "issock": false,
+                "isuid": false,
+                "mode": "0600",
+                "mtime": 1612200186.0,
+                "nlink": 1,
+                "path": "/var/log/ubuntu-advantage.log",
+                "pw_name": "root",
+                "rgrp": false,
+                "roth": false,
+                "rusr": true,
+                "size": 0,
+                "uid": 0,
+                "wgrp": false,
+                "woth": false,
+                "wusr": true,
+                "xgrp": false,
+                "xoth": false,
+                "xusr": false
+            },
+            {
+                "atime": 1618914530.9198966,
+                "ctime": 1613574624.5829127,
+                "dev": 64768,
+                "gid": 0,
+                "gr_name": "root",
+                "inode": 543468,
+                "isblk": false,
+                "ischr": false,
+                "isdir": false,
+                "isfifo": false,
+                "isgid": false,
+                "islnk": false,
+                "isreg": true,
+                "issock": false,
+                "isuid": false,
+                "mode": "0644",
+                "mtime": 1613574624.5829127,
+                "nlink": 1,
+                "path": "/var/log/fontconfig.log",
+                "pw_name": "root",
+                "rgrp": true,
+                "roth": true,
+                "rusr": true,
+                "size": 841,
+                "uid": 0,
+                "wgrp": false,
+                "woth": false,
+                "wusr": true,
+                "xgrp": false,
+                "xoth": false,
+                "xusr": false
+            },
+            {
+                "atime": 1618914531.2758965,
+                "ctime": 1613117805.0420928,
+                "dev": 64768,
+                "gid": 0,
+                "gr_name": "root",
+                "inode": 526306,
+                "isblk": false,
+                "ischr": false,
+                "isdir": false,
+                "isfifo": false,
+                "isgid": false,
+                "islnk": false,
+                "isreg": true,
+                "issock": false,
+                "isuid": false,
+                "mode": "0644",
+                "mtime": 1612200195.0,
+                "nlink": 1,
+                "path": "/var/log/bootstrap.log",
+                "pw_name": "root",
+                "rgrp": true,
+                "roth": true,
+                "rusr": true,
+                "size": 104003,
+                "uid": 0,
+                "wgrp": false,
+                "woth": false,
+                "wusr": true,
+                "xgrp": false,
+                "xoth": false,
+                "xusr": false
+            },
+            {
+                "atime": 1618914531.6358967,
+                "ctime": 1613743555.227876,
+                "dev": 64768,
+                "gid": 0,
+                "gr_name": "root",
+                "inode": 543463,
+                "isblk": false,
+                "ischr": false,
+                "isdir": false,
+                "isfifo": false,
+                "isgid": false,
+                "islnk": false,
+                "isreg": true,
+                "issock": false,
+                "isuid": false,
+                "mode": "0644",
+                "mtime": 1613743555.227876,
+                "nlink": 1,
+                "path": "/var/log/vboxadd-install.log",
+                "pw_name": "root",
+                "rgrp": true,
+                "roth": true,
+                "rusr": true,
+                "size": 629,
+                "uid": 0,
+                "wgrp": false,
+                "woth": false,
+                "wusr": true,
+                "xgrp": false,
+                "xoth": false,
+                "xusr": false
+            }
+        ],
+        "matched": 4,
+        "msg": ""
+    }
+}
+
+PLAY [Create directories for back_up] ********************************************************************************************
+
+TASK [Gathering Facts] ***********************************************************************************************************
+ok: [192.168.56.11]
+
+TASK [Mk dir] ********************************************************************************************************************
+changed: [192.168.56.11]
+
+TASK [Copy the files to remote host] *********************************************************************************************
+changed: [192.168.56.11] => (item={'path': '/var/log/ubuntu-advantage.log', 'mode': '0600', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 0, 'inode': 526311, 'dev': 64768, 'nlink': 1, 'atime': 1618914530.3918965, 'mtime': 1612200186.0, 'ctime': 1613117805.0460927, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': False, 'xgrp': False, 'woth': False, 'roth': False, 'xoth': False, 'isuid': False, 'isgid': False})
+changed: [192.168.56.11] => (item={'path': '/var/log/fontconfig.log', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 841, 'inode': 543468, 'dev': 64768, 'nlink': 1, 'atime': 1618914530.9198966, 'mtime': 1613574624.5829127, 'ctime': 1613574624.5829127, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+changed: [192.168.56.11] => (item={'path': '/var/log/bootstrap.log', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 104003, 'inode': 526306, 'dev': 64768, 'nlink': 1, 'atime': 1618914531.2758965, 'mtime': 1612200195.0, 'ctime': 1613117805.0420928, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+changed: [192.168.56.11] => (item={'path': '/var/log/vboxadd-install.log', 'mode': '0644', 'isdir': False, 'ischr': False, 'isblk': False, 'isreg': True, 'isfifo': False, 'islnk': False, 'issock': False, 'uid': 0, 'gid': 0, 'size': 629, 'inode': 543463, 'dev': 64768, 'nlink': 1, 'atime': 1618914531.6358967, 'mtime': 1613743555.227876, 'ctime': 1613743555.227876, 'gr_name': 'root', 'pw_name': 'root', 'wusr': True, 'rusr': True, 'xusr': False, 'wgrp': False, 'rgrp': True, 'xgrp': False, 'woth': False, 'roth': True, 'xoth': False, 'isuid': False, 'isgid': False})
+
+PLAY RECAP ***********************************************************************************************************************
+127.0.0.1                  : ok=3    changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0
+192.168.56.11              : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0

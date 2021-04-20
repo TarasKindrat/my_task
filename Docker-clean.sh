@@ -1,4 +1,4 @@
 #!/bin/bash
-# Remove all exited containers and dangling images
+# Remove all exited containers and images
+docker ps -f status=exited --format {{.Image}} | xargs docker rmi -f
 docker rm $(docker ps -q -f status=exited)
-docker rmi $(docker images -q -f dangling=true)

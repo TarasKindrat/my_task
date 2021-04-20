@@ -1,0 +1,33 @@
+---
+- name: Ansible Find Example
+  hosts: localhost
+  tasks:
+   - name : Find files older than 30 days
+     become: yes
+     find:
+       paths: /var/log
+       patterns: '*.log'
+       age: 30d
+       age_stamp: mtime
+     register: output
+   - debug:
+        var: output
+
+- name: Create directories for back_up
+  hosts: backup_host
+  tasks:
+  - name: Mk dir
+    file:
+        path: /back_up/var/log/
+        state: directory
+        mode: '0755'
+        recurse: yes
+    
+  - name: Copy the files to remote host
+    copy:
+      src: "{{item.path}}"
+      dest: /back_up/{{item.path}}
+      owner: root
+      mode: 600
+    with_items: 
+    - "{{ hostvars['localhost']['output'].files}}"

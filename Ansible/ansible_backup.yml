@@ -1,12 +1,15 @@
 ---
 - name: Ansible Find
   hosts: localhost
+  vars:
+    path_to_logs: /var/log
+    pattern_to_find_logs: '*.log'
   tasks:
    - name : Find files older than 30 days
      become: yes
      find:
-       paths: /var/log
-       patterns: '*.log'
+       paths: "{{path_to_logs}}"
+       patterns: "{{pattern_to_find_logs}}"
        age: 30d
        age_stamp: mtime
      register: output
@@ -15,10 +18,12 @@
 
 - name: Create directories for back_up
   hosts: backup_host
+  vars:
+    path_to_back_up: /back_up/var/log/
   tasks:
   - name: Mk dir
     file:
-        path: /back_up/var/log/
+        path: "{{path_to_back_up}}"
         state: directory
         mode: '0755'
         recurse: yes
@@ -30,4 +35,4 @@
       owner: root
       mode: 600
     with_items: 
-    - "{{ hostvars['localhost']['output'].files}}"
+    - "{{ hostvars['localhost']['output'].files }}"

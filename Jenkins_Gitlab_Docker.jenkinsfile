@@ -14,6 +14,7 @@ pipeline {
     stages {
         stage("Get Deckerfile and code from gitLab ") {
             steps {
+                 sh 'pwd'
                  git 'https://gitlab.com/kindrat5/docker_files.git'
                  git 'https://gitlab.com/kindrat5/web_page.git'
                  

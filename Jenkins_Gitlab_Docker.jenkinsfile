@@ -12,16 +12,25 @@ pipeline {
         timestamps()
     }
     stages {
-        stage("Get Deckerfile and code from gitLab ") {
+        stage("Get Deckerfile from gitLab ") {
             steps {
                  sh 'pwd; ls -la'
                  git 'https://gitlab.com/kindrat5/docker_files.git'
+                 sh 'pwd; ls -la'
+                 
+                 
+           }
+        }
+     
+        stage("Get code from gitLab ") {
+            steps {
                  sh 'pwd; ls -la'
                  git 'https://gitlab.com/kindrat5/web_page.git'
                  sh 'pwd; ls -la'
                  
            }
         }
+
         stage("Build") {
             steps {
                  sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image:latest'

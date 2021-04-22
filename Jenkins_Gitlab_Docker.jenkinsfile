@@ -36,9 +36,7 @@ pipeline {
         stage("Build") {
             steps {
                 sh 'ls -la' 
-                sh 'cd ..'
-                sh 'ls -la' 
-                sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image:latest'
+                sh 'docker build --no-cache -f docker_files/Dockerfile . -t www_image:latest'
             }
         }
         stage("Run image") {

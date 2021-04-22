@@ -4,13 +4,14 @@
   vars:
     path_to_logs: /var/log
     pattern_to_find_logs: '*.log'
+    age_of_find: 30d
   tasks:
    - name : Find files older than 30 days
      become: yes
      find:
        paths: "{{path_to_logs}}"
        patterns: "{{pattern_to_find_logs}}"
-       age: 30d
+       age: "{{age_of_find}}"
        age_stamp: mtime
      register: output
    - debug:
@@ -20,6 +21,7 @@
   hosts: backup_host
   vars:
     path_to_back_up: /back_up/var/log/
+    first_directory_for_backup: /back_up
   tasks:
   - name: Mk dir
     file:
@@ -31,7 +33,7 @@
   - name: Copy the files to remote host
     copy:
       src: "{{item.path}}"
-      dest: /back_up/{{item.path}}
+      dest: "{{first_directory_for_backup}}/{{item.path}}"
       owner: root
       mode: 600
     with_items: 

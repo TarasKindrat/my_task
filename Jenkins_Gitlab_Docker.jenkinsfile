@@ -21,14 +21,15 @@ pipeline {
         }
         stage("Build") {
             steps {
-                 sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image
+                 sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image:latest'
             }
         }
         stage("Run image") {
             steps {
-                 sh 'docker run --expose 80 -d www_image
+                 sh 'docker run --expose 80 -d www_image'
                  // -p 80:80
             }
         }
                
     }
+}

@@ -47,6 +47,12 @@ pipeline {
                  sh 'docker run --name web_example -p 8081:80 -d www_image'
             }
         }
+        
+        stage("Chech running images") {
+            steps {
+                 sh 'docker ps'
+            }
+        }
                
     }
 }

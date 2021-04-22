@@ -14,26 +14,28 @@ pipeline {
     stages {
         stage("Get Deckerfile from gitLab ") {
             steps {
+                dir('docker_files') {
                  sh 'pwd; ls -la'
                  git 'https://gitlab.com/kindrat5/docker_files.git'
                  sh 'pwd; ls -la'
                  
-                 
+                }  
            }
         }
      
         stage("Get code from gitLab ") {
             steps {
                  sh 'pwd; ls -la'
+                 dir('web_page') {
                  git 'https://gitlab.com/kindrat5/web_page.git'
                  sh 'pwd; ls -la'
-                 
+                 }
            }
         }
 
         stage("Build") {
             steps {
-                 sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image:latest'
+                 sh 'docker build --no-cache -f docker_files/Dockerfile .web_page/www/ -t www_image:latest'
             }
         }
         stage("Run image") {

@@ -40,7 +40,7 @@ pipeline {
                 sh 'docker rm -f web_example || true'
                  }
            }
-        }
+        
 
         stage("Run image") {
             steps {

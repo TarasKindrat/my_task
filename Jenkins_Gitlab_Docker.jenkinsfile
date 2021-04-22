@@ -33,9 +33,18 @@ pipeline {
                 sh 'docker build --no-cache -f docker_files/Dockerfile . -t www_image:latest'
             }
         }
+
+        stage("Stop and remove old container") {
+            steps {
+                // Return always true exist container or not
+                sh 'docker rm -f web_example || true'
+                 }
+           }
+        }
+
         stage("Run image") {
             steps {
-                 sh 'docker run -p 8081:80 -d www_image'
+                 sh 'docker run --name web_example -p 8081:80 -d www_image'
             }
         }
                

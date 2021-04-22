@@ -1,0 +1,141 @@
+Started by user Taras
+Obtained Jenkins_Gitlab_Docker.jenkinsfile from git https://github.com/TarasKindrat/my_task.git
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] properties
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/Jenkins_Gitlab_Docker
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+Selected Git installation does not exist. Using Default
+The recommended git tool is: NONE
+No credentials specified
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/TarasKindrat/my_task.git # timeout=10
+Fetching upstream changes from https://github.com/TarasKindrat/my_task.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.25.1'
+ > git fetch --tags --force --progress -- https://github.com/TarasKindrat/my_task.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+Checking out Revision 0b80bc9006e4e91c3fc94add49c6067b3306278a (refs/remotes/origin/master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f 0b80bc9006e4e91c3fc94add49c6067b3306278a # timeout=10
+Commit message: "Update Jenkins_Gitlab_Docker.jenkinsfile"
+ > git rev-list --no-walk 0b80bc9006e4e91c3fc94add49c6067b3306278a # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] timestamps
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Get Deckerfile from gitLab )
+[Pipeline] dir
+14:27:32  Running in /var/lib/jenkins/workspace/Jenkins_Gitlab_Docker/docker_files
+[Pipeline] {
+[Pipeline] git
+14:27:32  The recommended git tool is: NONE
+14:27:32  No credentials specified
+14:27:32   > git rev-parse --is-inside-work-tree # timeout=10
+14:27:32  Fetching changes from the remote Git repository
+14:27:32   > git config remote.origin.url https://gitlab.com/kindrat5/docker_files.git # timeout=10
+14:27:32  Fetching upstream changes from https://gitlab.com/kindrat5/docker_files.git
+14:27:32   > git --version # timeout=10
+14:27:32   > git --version # 'git version 2.25.1'
+14:27:32   > git fetch --tags --force --progress -- https://gitlab.com/kindrat5/docker_files.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+14:27:32   > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+14:27:32  Checking out Revision d5e045297cf2025247997c1f2a6f2381dc012d86 (refs/remotes/origin/master)
+14:27:32   > git config core.sparsecheckout # timeout=10
+14:27:32   > git checkout -f d5e045297cf2025247997c1f2a6f2381dc012d86 # timeout=10
+14:27:32   > git branch -a -v --no-abbrev # timeout=10
+14:27:32   > git branch -D master # timeout=10
+14:27:32   > git checkout -b master d5e045297cf2025247997c1f2a6f2381dc012d86 # timeout=10
+14:27:32  Commit message: "Update Dockerfile"
+14:27:32   > git rev-list --no-walk d5e045297cf2025247997c1f2a6f2381dc012d86 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Get code from gitLab )
+[Pipeline] dir
+14:27:32  Running in /var/lib/jenkins/workspace/Jenkins_Gitlab_Docker/web_page
+[Pipeline] {
+[Pipeline] git
+14:27:32  The recommended git tool is: NONE
+14:27:32  No credentials specified
+14:27:32   > git rev-parse --is-inside-work-tree # timeout=10
+14:27:32  Fetching changes from the remote Git repository
+14:27:32   > git config remote.origin.url https://gitlab.com/kindrat5/web_page.git # timeout=10
+14:27:32  Fetching upstream changes from https://gitlab.com/kindrat5/web_page.git
+14:27:32   > git --version # timeout=10
+14:27:32   > git --version # 'git version 2.25.1'
+14:27:32   > git fetch --tags --force --progress -- https://gitlab.com/kindrat5/web_page.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+14:27:33   > git rev-parse refs/remotes/origin/master^{commit} # timeout=10
+14:27:33  Checking out Revision 72e481c5d4861a020c8a62b5debead1086f12a65 (refs/remotes/origin/master)
+14:27:33   > git config core.sparsecheckout # timeout=10
+14:27:33   > git checkout -f 72e481c5d4861a020c8a62b5debead1086f12a65 # timeout=10
+14:27:33   > git branch -a -v --no-abbrev # timeout=10
+14:27:33   > git branch -D master # timeout=10
+14:27:33   > git checkout -b master 72e481c5d4861a020c8a62b5debead1086f12a65 # timeout=10
+14:27:33  Commit message: "Upload New File"
+14:27:33   > git rev-list --no-walk 72e481c5d4861a020c8a62b5debead1086f12a65 # timeout=10
+[Pipeline] }
+[Pipeline] // dir
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] sh
+14:27:33  + docker build --no-cache -f docker_files/Dockerfile . -t www_image:latest
+14:27:33  Sending build context to Docker daemon  998.4kB
+
+14:27:33  Step 1/6 : FROM ulsmith/debian-apache-php
+14:27:33   ---> e0e9612e745f
+14:27:33  Step 2/6 : MAINTAINER You <kindrat5@gmail.com>
+14:27:33   ---> Running in 8c83541284ab
+14:27:34  Removing intermediate container 8c83541284ab
+14:27:34   ---> a30a8ad150f5
+14:27:34  Step 3/6 : ADD ./web_page/www /var/www/html
+14:27:34   ---> c2bced18eea6
+14:27:34  Step 4/6 : RUN chmod -R 0755 /var/www/html
+14:27:34   ---> Running in 4c5544281bf4
+14:27:36  Removing intermediate container 4c5544281bf4
+14:27:36   ---> 18587882506f
+14:27:36  Step 5/6 : EXPOSE 80
+14:27:36   ---> Running in d6d52b67ae2c
+14:27:36  Removing intermediate container d6d52b67ae2c
+14:27:36   ---> 3b4794224c2a
+14:27:36  Step 6/6 : CMD ["/run.sh"]
+14:27:36   ---> Running in 5d6aa0560f7a
+14:27:36  Removing intermediate container 5d6aa0560f7a
+14:27:36   ---> 2667f2b29674
+14:27:36  Successfully built 2667f2b29674
+14:27:36  Successfully tagged www_image:latest
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Stop and remove old container)
+[Pipeline] sh
+14:27:36  + docker rm -f web_example
+14:27:36  web_example
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Run image)
+[Pipeline] sh
+14:27:37  + docker run --name web_example -p 8081:80 -d www_image
+14:27:37  e0213c21bbd729f4eab5a4460e6dc5e6c79c46920a4e6b33e193de0f3ce5ebe2
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // timestamps
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS

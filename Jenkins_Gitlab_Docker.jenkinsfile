@@ -35,6 +35,7 @@ pipeline {
 
         stage("Build") {
             steps {
+                sh 'cd ..'
                  sh 'docker build --no-cache -f docker_files/Dockerfile web_page/www/ -t www_image:latest'
             }
         }

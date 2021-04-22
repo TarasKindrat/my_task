@@ -41,7 +41,7 @@ pipeline {
         }
         stage("Run image") {
             steps {
-                 sh 'docker run -p 80:8081 -d www_image'
+                 sh 'docker run -p 8081:80 -d www_image'
                  // -p 80:80
             }
         }

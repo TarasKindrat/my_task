@@ -13,7 +13,7 @@ echo "Offline resources: "
 
 date_arr=( $(cat txt_resources.txt | jq -Sc '.resource[] | select(.agentState.state == "down") | .agentState.time | sub("(?<time>.*)\\.[\\d]{3}(?<tz>.*)"; "\(.time)\(.tz)") | strptime("%Y-%m-%dT%H:%M:%SZ") |mktime ') );
 names_arr=( $(cat txt_resources.txt | jq '.resource[] | select(.agentState.state == "down") | .resourceName') );
-sorted_last_data=( $(cat txt_resources.txt | jq -Sc '.resource[] | select(.agentState.state == "down") | .agentState.time | sub("(?<time>.*)\\.[\\d]{3}(?<tz>.*)"; "\(.time)\(.tz)") | strptime("%Y-%m-%dT%H:%M:%SZ") |mktime ' | sort -n | head -n 10) )
+sorted_last_data=( $(cat txt_resources.txt | jq -Sc '.resource[] | select(.agentState.state == "down") | .agentState.time | sub("(?<time>.*)\\.[\\d]{3}(?<tz>.*)"; "\(.time)\(.tz)") | strptime("%Y-%m-%dT%H:%M:%SZ") |mktime ' | sort -nu | head -n 10) )
 
 for index in ${!date_arr[*]}
 do

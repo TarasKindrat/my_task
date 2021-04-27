@@ -20,7 +20,7 @@ do
     for item2 in ${sorted_last_data[*]}
     do
         if [[ "${date_arr[$index]}" = "$item2" ]]; then
-           printf "   %s\n" ${names_arr[!$index]};
+           printf "   %s\n" ${names_arr[$index]};
         fi
         
      done

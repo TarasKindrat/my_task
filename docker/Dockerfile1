@@ -1,0 +1,2 @@
+FROM debian:10.7
+RUN apt-get -y update

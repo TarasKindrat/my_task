@@ -28,6 +28,9 @@ pipeline {
                 dir ('docker/toolbox') {
                 	sh 'docker build -t taraskindrat/toolbox:latest . '
                 }
+                dir ('docker') {
+                	sh 'docker build -t taraskindrat/toolbox2:latest . '
+                }
             }
         } 
         
@@ -35,7 +38,7 @@ pipeline {
             steps {
                 echo " ============== start pushing image =================="
                 sh '''
-                docker push taraskindrat/toolbox:latest
+                # docker push taraskindrat/toolbox:latest
                 '''
             }
         }

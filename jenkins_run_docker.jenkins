@@ -25,8 +25,8 @@ pipeline {
         stage("Create docker image") {
             steps {
                 echo " ============== start building image =================="
-                dir ('docker/toolbox') {
-                	sh 'docker build -t taraskindrat/toolbox:latest . '
+                dir ('docker') {
+                	sh 'docker build -t taraskindrat/toolbox:latest -f Dockerfile1 . '
                 }
             }
         } 
